@@ -11,7 +11,6 @@ app.jsx:
  import { useRef } from 'react';
  import { Content, type ChatBoxImperativeHandle } from '@wanghongl/chat-box';
  import './App.css';
- import languageList from './language';
 
  function App() {
    const chatRef = useRef<ChatBoxImperativeHandle>(null);
@@ -33,8 +32,6 @@ return (
   <div className="relative h-screen w-screen bg-white">
     <Content
       openLog={false}
-      defaultLanguage={languageList.find((item) => item.label === 'English')}
-      languages={languageList}
       onStart={onStart}
       onStop={() => {
         // TODO
@@ -55,8 +52,6 @@ export default App;
 | Prop             | Type         | Required | Description |
 | ---------------- | ------------ | -------- | ----------- |
 | openLog          | Boolean      | No       | Enable debug logging |
-| defaultLanguage  | Language     | Yes      | Default language for the interface |
-| languages        | Language[]   | Yes      | Array of available languages |
 | onStart          | `(ref: ChatBoxImperativeHandle) => void` | Yes | Callback when chat starts |
 | onStop           | `() => void` | No       | Callback when chat stops |
 | onError          | `(type: string, error: any) => void` | No | Error handler callback |
@@ -88,16 +83,6 @@ typescript:
 - `conversationId` Unique identifier for the conversation
 
 - `platform` Platform identifier (e.g., 'duix.com')
-
-### Language Support
-The component supports multiple languages. Provide a language list with the following structure:
-```javascript
-interface Language {
-    label: string;
-    code: string;
-    flag: string
-}
-```
 
 ### Browser Support
 This component supports modern browsers with WebRTC capabilities for real-time video/audio communication.
