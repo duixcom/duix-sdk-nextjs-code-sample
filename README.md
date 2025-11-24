@@ -52,14 +52,14 @@ export default App;
 
 ### props
 #### Content Component Props
-|Prop             | Type         | Required     |Description   |
-| ------------    | ------------ | ------------ |
-| openLog         | Boolean      | No           | Enable debug logging
-| defaultLanguage | Language     | Yes          | Default language for the interface   |
-| languages       | Language[]   | Yes          | Array of available languages  |
-| onStart         | `(ref: ChatBoxImperativeHandle) => void`  |  Yes | Callback when chat starts  |
-| onStop          |  `() => void`| No           | Callback when chat stops  |
-| onError         |  `(type: string, error: any) => void` | No  | Error handler callback  |
+| Prop             | Type         | Required | Description |
+| ---------------- | ------------ | -------- | ----------- |
+| openLog          | Boolean      | No       | Enable debug logging |
+| defaultLanguage  | Language     | Yes      | Default language for the interface |
+| languages        | Language[]   | Yes      | Array of available languages |
+| onStart          | `(ref: ChatBoxImperativeHandle) => void` | Yes | Callback when chat starts |
+| onStop           | `() => void` | No       | Callback when chat stops |
+| onError          | `(type: string, error: any) => void` | No | Error handler callback |
 
 ### ChatBoxImperativeHandle Methods
 `startCall(options: StartCallOptions): Promise<void>`

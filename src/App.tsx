@@ -24,7 +24,6 @@ function App() {
             <Content
                 openLog
                 onStart={onStart}
-                durationBalanceSec={60 * 4}
                 onStop={() => {
                     console.debug('stop call');
                 }}
