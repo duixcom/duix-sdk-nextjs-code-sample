@@ -4,7 +4,6 @@ import './App.css';
 
 function App() {
     const chatRef = useRef<ChatBoxImperativeHandle>(null);
-
     const onStart = async (ref: ChatBoxImperativeHandle) => {
         chatRef.current = ref;
         await chatRef.current?.startCall({
@@ -18,6 +17,7 @@ function App() {
             sessionTimeOutSec: 0
         });
     };
+
 
     return (
         <div className="relative h-screen w-screen bg-white">

@@ -1,5 +1,5 @@
 {
-  "name": "duix-sdk-nextjs-code-sample",
+  "name": "duix-sdk-react-code-sample",
   "version": "1.0.0",
   "description": "",
   "type": "module",
@@ -54,13 +54,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/duixcom/duix-sdk-nextjs-code-sample.git"
+    "url": "git+https://github.com/duixcom/duix-sdk-react-code-sample.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/duixcom/duix-sdk-nextjs-code-sample/issues"
+    "url": "https://github.com/duixcom/duix-sdk-react-code-sample/issues"
   },
-  "homepage": "https://github.com/duixcom/duix-sdk-nextjs-code-sample#readme"
+  "homepage": "https://github.com/duixcom/duix-sdk-react-code-sample#readme"
 }
