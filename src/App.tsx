@@ -4,7 +4,6 @@ import './App.css';
 
 function App() {
     const chatRef = useRef<ChatBoxImperativeHandle>(null);
-
     const onStart = async (ref: ChatBoxImperativeHandle) => {
         chatRef.current = ref;
         await chatRef.current?.startCall({
@@ -19,11 +18,13 @@ function App() {
         });
     };
 
+
     return (
         <div className="relative h-screen w-screen bg-white">
             <Content
                 openLog
                 onStart={onStart}
+                durationBalanceSec={60 * 4}
                 onStop={() => {
                     console.debug('stop call');
                 }}
