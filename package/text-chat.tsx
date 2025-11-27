@@ -85,7 +85,7 @@ export default function TextChat({
         <div
             className={`cb:flex cb:flex-col cb:absolute cb:z-5 cb:shadow-sm cb:bg-light cb:bottom-6 cb:w-[257px] cb:right-3 cb:md:right-6 cb:rounded-[30px] cb:h-[419px] cb:md:h-[512px] cb:overflow-hidden ${heightClass}`}
         >
-            <div className="cb:shrink-0 cb:md:[box-shadow:_0px_1px_4px_0px_#00000026] cb:h-[44px] cb:md:h-[52px] cb:flex cb:justify-between cb:items-center cb:px-4 cb:py-2">
+            <div className="cb:shrink-0 cb:md:[box-shadow:_0px_1px_4px_0px_#00000026] cb:h-11 cb:md:h-[52px] cb:flex cb:justify-between cb:items-center cb:px-4 cb:py-2">
                 <div className="cb:flex-1 cb:body-s cb:text-dark"></div>
                 <div className="cb:flex-1 cb:body-s cb:text-dark cb:text-center">Chat</div>
                 <Button
@@ -97,14 +97,14 @@ export default function TextChat({
             </div>
             <div
                 ref={chatListRef}
-                className="cb:flex-grow cb:scrollbar-hidden cb:overflow-y-auto cb:pt-5 cb:pb-6 cb:px-3 cb:flex cb:gap-4 cb:flex-col"
+                className="cb:grow cb:scrollbar-hidden cb:overflow-y-auto cb:pt-5 cb:pb-6 cb:px-3 cb:flex cb:gap-4 cb:flex-col"
             >
                 {chatList.map((item, index) => {
                     if (item.type === 'ai')
                         return (
                             <div
                                 key={index}
-                                className="cb:max-w-[221px] cb:w-fit cb:text-left cb:bg-light-grey cb:rounded-[8px] cb:px-4 cb:py-2"
+                                className="cb:max-w-[221px] cb:w-fit cb:text-left cb:bg-light-grey cb:rounded-xl cb:px-4 cb:py-2"
                             >
                                 <div className="cb:caption cb:text-secondary-text">
                                     {conversationInfo?.conversationName}
@@ -114,7 +114,7 @@ export default function TextChat({
                         );
                     return (
                         <div key={index} className="cb:flex cb:justify-end">
-                            <div className="cb:max-w-[221px] cb:w-fit cb:text-right cb:bg-grey-md cb:rounded-[8px] cb:px-4 cb:py-2">
+                            <div className="cb:max-w-[221px] cb:w-fit cb:text-right cb:bg-grey-md cb:rounded-xl cb:px-4 cb:py-2">
                                 <div className="cb:body-xs cb:text-dark">{item.content}</div>
                             </div>
                         </div>
@@ -122,19 +122,19 @@ export default function TextChat({
                 })}
                 {isInputing && (
                     <div className="cb:flex cb:justify-end">
-                        <div className="cb:max-w-[221px] cb:w-fit cb:bg-grey-md cb:rounded-[8px] cb:px-4 cb:py-2">
+                        <div className="cb:max-w-[221px] cb:w-fit cb:bg-grey-md cb:rounded-xl cb:px-4 cb:py-2">
                             <EllipsisHorizontalIcon className="cb:size-5 cb:text-dark" />
                         </div>
                     </div>
                 )}
                 {isWaitingAnswer && (
-                    <div className="cb:max-w-[221px] cb:w-fit cb:text-left cb:bg-light-grey cb:rounded-[8px] cb:px-4 cb:py-2">
+                    <div className="cb:max-w-[221px] cb:w-fit cb:text-left cb:bg-light-grey cb:rounded-xl cb:px-4 cb:py-2">
                         <EllipsisHorizontalIcon className="cb:size-5 cb:text-dark" />
                     </div>
                 )}
             </div>
             <div className="cb:pb-3 cb:px-3 cb:pt-4 cb:w-full">
-                <div className="cb:w-full cb:rounded-[20px] cb:px-3 cb:relative cb:flex cb:items-center cb:flex-row cb:h-[44px] cb:border cb:border-grey-md cb:gap-2">
+                <div className="cb:w-full cb:rounded-[20px] cb:px-3 cb:relative cb:flex cb:items-center cb:flex-row cb:h-11 cb:border cb:border-grey-md cb:gap-2">
                     <div className="cb:shrink-0">
                         <LockClosedIcon className="cb:shrink-0 cb:size-5 cb:text-grey-md" />
                     </div>
@@ -146,7 +146,7 @@ export default function TextChat({
                             if (e.keyCode === 13) handleSend();
                         }}
                         onChange={handleInputChange}
-                        className="cb:w-full cb:flex-grow cb:outline-none cb:selection:bg-transparent cb:h-full cb:body-s"
+                        className="cb:w-full cb:grow cb:outline-none cb:selection:bg-transparent cb:h-full cb:body-s"
                     />
                     <Button
                         disabled={!userInputText}

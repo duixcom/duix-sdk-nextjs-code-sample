@@ -5,22 +5,16 @@ import {
   PhoneIcon as PhoneIconOutline
 } from '@heroicons/react/24/outline';
 import { Button } from './components/button';
-import CaptionOutline from './icons/Caption outline.svg';
-import Caption from './icons/Caption solid.svg';
-import ChatOutline from './icons/Chat outline.svg';
-import Chat from './icons/Chat solid.svg';
-import { sendGAEvent } from './lib';
+import TextChatClose from './icons/text-chat-close.svg';
+import TextChat from './icons/text-chat-active.svg';
 import { CurrentStatus, useStore } from './store';
-import type { ChatBoxImperativeHandle, Language } from './type';
+import type { ChatBoxImperativeHandle } from './type';
 
 export default function ActionGroup({
   onStop,
   onStart,
   chatRef
 }: {
-  language?: Language;
-  languages?: Language[];
-  onLanguageChange?: (language: Language) => void;
   onStop: () => void;
   onStart: () => void;
   chatRef: ChatBoxImperativeHandle;
@@ -32,18 +26,15 @@ export default function ActionGroup({
     cameraVisible,
     currentStatus,
     cameraStatus,
-    showChatLetter,
     showTextChat,
   } = useStore(
     'micMuted',
     'cameraVisible',
     'currentStatus',
     'showTextChat',
-    'showChatLetter',
     'loading',
     'cameraStatus',
     'cameraLoading',
-    'language',
     'showLanguageSelector'
   );
 
@@ -54,10 +45,8 @@ export default function ActionGroup({
 
   const handleStartClick = async () => {
     if (isConnected) {
-      sendGAEvent('event', 'chat_call_off');
       onStop();
     } else {
-      sendGAEvent('event', 'chat_call_on');
       onStart();
     }
   };
@@ -70,21 +59,6 @@ export default function ActionGroup({
             disabled={disabled || !isConnected}
             className="cb:size-8 cb:rounded-full cb:bg-unisex-grey"
             onClick={() => {
-              sendGAEvent('event', 'chat_subtitle_toggle');
-              chatRef.switchChatLetter();
-            }}
-          >
-            {showChatLetter ? (
-              <img className={`cb:size-4.5`} src={Caption} alt="icon" />
-            ) : (
-              <img className={`cb:size-4.5`} src={CaptionOutline} alt="icon" />
-            )}
-          </Button>
-          <Button
-            disabled={disabled || !isConnected}
-            className="cb:size-8 cb:rounded-full cb:bg-unisex-grey"
-            onClick={() => {
-              sendGAEvent('event', 'chat_microphone_toggle');
               chatRef.switchMic();
             }}
           >
@@ -100,7 +74,6 @@ export default function ActionGroup({
             isOnlyIcon
             className="cb:size-8 cb:rounded-full cb:bg-unisex-grey cb:text-white"
             onClick={() => {
-              sendGAEvent('event', 'chat_camera_toggle');
               chatRef.switchCamera();
             }}
           >
@@ -114,14 +87,13 @@ export default function ActionGroup({
             disabled={disabled || !isConnected}
             className="cb:size-8 cb:rounded-full cb:bg-unisex-grey"
             onClick={() => {
-              sendGAEvent('event', 'chat_text_mode_toggle');
               chatRef.switchTextChat();
             }}
           >
             {showTextChat ? (
-              <img className={`cb:size-4.5`} src={Chat} alt="icon" />
+              <img className={`cb:size-4.5`} src={TextChatClose} alt="icon" />
             ) : (
-              <img className={`cb:size-4.5`} src={ChatOutline} alt="icon" />
+              <img className={`cb:size-4.5`} src={TextChat} alt="icon" />
             )}
           </Button>
         </>

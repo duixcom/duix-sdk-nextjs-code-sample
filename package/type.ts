@@ -11,28 +11,25 @@ export interface Config {
 
 export interface TimeOptions {
     /**
-     * 是否开启体验模式
+     * Taster mode
      */
     taster?: boolean;
     /**
-     * 体验模式时间second
+     * Taster mode seconds
      */
     tasterSec?: number;
     /**
-     * 会话超时时间second
+     * session timeout seconds
      */
     sessionTimeOutSec?: number;
     /**
-     * 账户时间余额second
+     * duration balance seconds of account
      */
     durationBalanceSec?: number;
     /**
-     * 活跃检测时间second
+     * check active seconds
      */
     activeCheckSec?: number;
-    /**
-     * 停止调用时间second
-     */
     stopCallTimeSec?: number;
 }
 
@@ -45,38 +42,15 @@ export interface StartOptions extends TimeOptions {
     config: Config;
 }
 
-export interface Language {
-    /**
-     * 语言 名称
-     */
-    label: string;
-    /**
-     * 语言 代码
-     */
-    code: string;
-    /**
-     * 语言 国旗
-     */
-    flag?: string;
-}
-
 export interface ChatApp {
     className?: string;
     poster?: string;
-    defaultLanguage?: Language;
-    languages?: Language[];
     openLog?: boolean;
     durationBalanceSec?: number;
     sdkUrl?: string;
-    /**
-     * 初始化完成回调
-     */
     onReady?: (imperativeHandle: ChatBoxImperativeHandle) => void;
     onStop?: (reason?: string) => void;
     onStart?: (imperativeHandle: ChatBoxImperativeHandle) => Promise<void>;
-    /**
-     * 错误回调
-     */
     onError?: (error: any, type?: string) => void;
     onAction?: (type: string, data?: any) => void;
     InnerElement?: ComponentType<{ useStore: Store }>;
@@ -94,7 +68,6 @@ export interface ChatBoxImperativeHandle {
     switchCamera: () => void;
     switchCameraMode: () => void;
     switchTextChat: () => void;
-    switchChatLetter: () => void;
     switchCameraSize: () => void;
     switchVideoMuted: (muted?: boolean) => void;
     answer: (text: string, interrupt: boolean) => Promise<void>;

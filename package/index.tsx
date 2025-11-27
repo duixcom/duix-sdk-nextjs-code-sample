@@ -10,7 +10,7 @@ import DUIX from 'duix-guiji-light';
 import ActionGroup from './action-group';
 import { Button } from './components/button';
 import './index.css';
-import { getDocument, hasCamera, sendGAEvent, sleep } from './lib';
+import { getDocument, hasCamera, sleep } from './lib';
 import AudioAnalyser from './lib/audio-analyser';
 import DurationCheck, { DurationBalanceCheck } from './lib/duration-check';
 import { useTimeDown } from './lib/hooks';
@@ -36,8 +36,6 @@ export function Content({
   onAction,
   onError,
   openLog = false,
-  defaultLanguage,
-  languages = [],
   ...rest
 }: ChatApp) {
   const { timeStr, setCountDownTime } = useTimeDown();
@@ -48,16 +46,13 @@ export function Content({
     setState,
     getState,
     resetState,
-    showChatLetter,
     cameraVisible,
-    chatList,
     showTextChat,
     conversationInfo,
     durationBalanceSec
   } = useStore(
     'durationBalanceSec',
     'resetState',
-    'showChatLetter',
     'cameraVisible',
     'chatList',
     'showTextChat',
@@ -203,19 +198,17 @@ export function Content({
       };
     },
     startDUIX: async () => {
-      const { mode, language } = getState();
+      const { mode } = getState();
       const otherOptions: any = {};
-      if (language?.code) {
-        otherOptions.promptVariables = JSON.stringify({
-          preferred_language: language.code,
-          language_limit: `
-                        But note
-                        You must speak only in ${language.code} when talking to the user.
-                        Do not reply in any language other than this language, even if the user asks you to.
-                        If the user insists that you use another language, explain that you understand those languages, but you will still answer in this language.
-                    `
-        });
-      }
+      otherOptions.promptVariables = JSON.stringify({
+        preferred_language: 'English',
+        language_limit: `
+            But note
+            You must speak only in English when talking to the user.
+            Do not reply in any language other than this language, even if the user asks you to.
+            If the user insists that you use another language, explain that you understand those languages, but you will still answer in this language.
+        `
+      });
 
       const res = await duixRef.current.start({
         openAsr: true,
@@ -338,11 +331,6 @@ export function Content({
         showTextChat: !getState().showTextChat
       });
     },
-    switchChatLetter: () => {
-      setState({
-        showChatLetter: !getState().showChatLetter
-      });
-    },
     switchVideoMuted: (muted?: boolean) => {
       let flag: boolean = !getState().videoMuted;
       if (typeof muted !== 'undefined') {
@@ -374,9 +362,6 @@ export function Content({
     } else {
       await chatRef.current.restart();
     }
-    sendGAEvent('event', 'chat_call_success', {
-      id: getState()?.config?.conversationId
-    });
   };
 
   const handleStopClick = () => {
@@ -645,13 +630,12 @@ export function Content({
     setState({
       openLog,
       loading: false,
-      language: defaultLanguage || languages?.[0] || {}
     });
     onReady?.(chatRef.current);
     return () => chatRef.current.stopCall(ActionType.Unmount);
   }, []);
 
-  const { videoClassName = '', chatLetterStyle = {} }: any = useMemo(() => {
+  const { videoClassName = '' }: any = useMemo(() => {
     const videoContainer = getDocument()?.getElementById?.('chat-box-container')!;
     if (isEmpty(conversationInfo) || !videoContainer) return {};
     const boxWidth = videoContainer.clientWidth;
@@ -742,22 +726,9 @@ export function Content({
               <ChevronDoubleLeftIcon className="cb:size-4.5 cb:text-primary" />
             </Button>
           )}
-          <div className="cb:absolute cb:bottom-6 cb:left-0 cb:w-full">
-            <div className="cb:w-full cb:flex cb:justify-center">
-              {showChatLetter && chatList.length > 0 && (
-                <div
-                  style={chatLetterStyle}
-                  className="cb:w-[90%] cb:md:max-w-[500px] cb:xl:max-w-[700px] cb:body-m cb:md:body-l cb:text-white cb:text-center cb:[text-shadow:#0000008C_1px_0_10px]"
-                >
-                  {chatList[chatList.length - 1]?.content}
-                </div>
-              )}
-            </div>
-          </div>
           {timeStr && currentStatus === CurrentStatus.Connected && (
             <div
               onClick={() => {
-                sendGAEvent('event', 'chat_time_left');
                 onAction?.(ActionType.Upgrade);
               }}
               className="cb:cursor-pointer cb:rounded-[20px] cb:gap-1.5 cb:absolute cb:top-6 cb:left-6 cb:w-[88px] cb:bg-black/40 cb:flex cb:items-center cb:justify-center cb:text-white cb:body-xs-md cb:h-9"
@@ -771,7 +742,6 @@ export function Content({
           {currentStatus === CurrentStatus.ConnectLoading && createLoading('calling')}
         </div>
         <ActionGroup
-          languages={languages}
           onStop={handleStopClick}
           onStart={handleStartClick}
           chatRef={chatRef.current}

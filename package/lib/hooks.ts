@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
+// Helper function to format seconds into HH:MM:SS or MM:SS
 const formatTime = (seconds: number) => {
     if (seconds <= 0) return '';
 
@@ -12,6 +13,7 @@ const formatTime = (seconds: number) => {
         : `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 };
 
+// Hook for managing countdown timer state
 export function useTimeDown() {
     const [timeStr, setTimeStr] = useState('');
 
@@ -25,14 +27,9 @@ export function useTimeDown() {
     };
 }
 
-/**
- * 支持异步函数的副作用Hook
- * 与useEffect类似，但允许effect函数返回Promise
- */
+// Hook for handling asynchronous effects in React components
 export function useAsyncEffect(effect: () => Promise<void | (() => void)>, deps?: React.DependencyList) {
-    // 用于跟踪组件是否已卸载，防止内存泄漏
     const isMounted = useRef(true);
-    // 存储清理函数
     const cleanupRef = useRef<(() => void) | void>(null);
 
     useEffect(() => {
@@ -40,7 +37,6 @@ export function useAsyncEffect(effect: () => Promise<void | (() => void)>, deps?
 
         const executeEffect = async () => {
             try {
-                // 执行异步effect并获取可能的清理函数
                 const cleanup = await effect();
                 if (cleanup && isMounted.current) {
                     cleanupRef.current = cleanup;
@@ -52,7 +48,6 @@ export function useAsyncEffect(effect: () => Promise<void | (() => void)>, deps?
 
         executeEffect();
 
-        // 组件卸载时执行清理
         return () => {
             isMounted.current = false;
             cleanupRef.current?.();

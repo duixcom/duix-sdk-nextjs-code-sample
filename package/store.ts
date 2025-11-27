@@ -1,5 +1,5 @@
 import { createNewStore } from './lib';
-import type { Config, Language } from './type';
+import type { Config } from './type';
 
 export enum CurrentStatus {
     None = 0,
@@ -23,11 +23,8 @@ export enum ActionType {
     StartSession = 'startSession',
     Unmount = 'unmount',
     StopCallTimeCheck = 'stopCallTimeCheck',
-    Language = 'language',
     Upgrade = 'upgrade'
 }
-
-// export const SDK_URL = 'https://cdn.duix.ai/duix/sdk/0.3.1/duix.js';
 
 const defaultState = {
     isCalling: false,
@@ -39,7 +36,6 @@ const defaultState = {
     cameraVisible: false,
     isSmallCamera: false,
     showTextChat: false,
-    showChatLetter: false,
     micMuted: false, // mic 静音
     videoMuted: true, // 视频
     isInputing: false,
@@ -51,7 +47,6 @@ const defaultState = {
 export const useStore = createNewStore((set) => ({
     loading: true,
     openLog: false,
-    language: {} as Language,
     config: {} as Config,
     conversationInfo: {} as any,
     currentStatus: CurrentStatus.None,

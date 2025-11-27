@@ -1,5 +1,15 @@
 // @ts-nocheck
+/**
+ * DurationCheck class for managing a one-time timeout with callback execution
+ * Useful for implementing session timeouts, operation time limits, etc.
+ */
 export default class DurationCheck {
+    /**
+     * @param minutes - Timeout duration in minutes
+     * @param reason - Reason or identifier for the timeout
+     * @param callback - Callback function executed when timeout completes
+     * @param stopCallback - Optional callback executed when timer is stopped manually
+     */
     constructor(minutes, reason, callback, stopCallback?) {
         this.minutes = minutes;
         this.timer = null;
@@ -22,7 +32,7 @@ export default class DurationCheck {
                 /* eslint-disable */
                 this.callback && this.callback(this.reason);
             },
-            this.minutes * 60 * 1000
+            this.minutes * 60 * 1000 // Convert minutes to milliseconds
         );
     }
 
@@ -35,6 +45,10 @@ export default class DurationCheck {
     }
 }
 
+/**
+ * DurationBalanceCheck class for managing a countdown timer with periodic callbacks
+ * Useful for implementing countdown timers, balance updates, etc.
+ */
 export class DurationBalanceCheck {
     timer = null;
     constructor(seconds, callback) {

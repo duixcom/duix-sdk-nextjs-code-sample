@@ -15,7 +15,7 @@ export default class AudioAnalyser {
             return;
         }
 
-        // 创建音频上下文
+        // create AudioContext and AnalyserNode
         this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
         this.audioAnalyser = this.audioContext.createAnalyser();
         const source = this.audioContext.createMediaStreamSource(stream);
@@ -23,7 +23,7 @@ export default class AudioAnalyser {
         this.audioAnalyser.fftSize = 256;
         this.dataArray = new Uint8Array(this.audioAnalyser.frequencyBinCount);
 
-        // 开始更新音量
+        // update volume visualization
         this.updateVolume();
     }
 
@@ -33,7 +33,7 @@ export default class AudioAnalyser {
         this.audioAnalyser.getByteFrequencyData(this.dataArray);
         const average = this.dataArray.reduce((acc, val) => acc + val, 0) / this.dataArray.length;
 
-        // 调整音量计算方法，使用指数函数来放大小音量的差异
+        // compute volume percentage with a minimum threshold
         const volumePercentage = Math.min(Math.max(Math.pow(average / 255, 0.5) * 100, 5), 100);
 
         const volume = getDocument()?.querySelector(this.el);

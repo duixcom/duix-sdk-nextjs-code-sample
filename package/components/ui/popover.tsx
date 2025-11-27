@@ -3,6 +3,17 @@
 import { Popover as PopoverRoot, PopoverTrigger, PopoverContent } from '@heroui/popover';
 import * as React from 'react';
 
+/**
+ * Popover component for displaying contextual information or actions
+ * Wraps the HeroUI Popover components with simplified props interface
+ *
+ * @param placement - Position of the popover relative to trigger (default: 'top')
+ * @param offset - Distance between popover and trigger element
+ * @param trigger - Element that triggers the popover when clicked
+ * @param children - Content to display inside the popover
+ * @param onOpenChange - Callback fired when popover open state changes
+ * @param extraProps - Additional props passed to the root Popover component
+ */
 const Popover = ({
     placement = 'top',
     trigger,
