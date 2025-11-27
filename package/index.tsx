@@ -726,17 +726,6 @@ export function Content({
               <ChevronDoubleLeftIcon className="cb:size-4.5 cb:text-primary" />
             </Button>
           )}
-          {timeStr && currentStatus === CurrentStatus.Connected && (
-            <div
-              onClick={() => {
-                onAction?.(ActionType.Upgrade);
-              }}
-              className="cb:cursor-pointer cb:rounded-[20px] cb:gap-1.5 cb:absolute cb:top-6 cb:left-6 cb:w-[88px] cb:bg-black/40 cb:flex cb:items-center cb:justify-center cb:text-white cb:body-xs-md cb:h-9"
-            >
-              <ClockIconOutline className="cb:size-4.5" />
-              {timeStr}
-            </div>
-          )}
           {showTextChat && <TextChat onInputChange={handleTextInputing} onSend={handleSendText} />}
           {InnerElement && <InnerElement useStore={useStore} />}
           {currentStatus === CurrentStatus.ConnectLoading && createLoading('calling')}
