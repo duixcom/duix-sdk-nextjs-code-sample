@@ -1,7 +1,7 @@
 'use client';
 
 import { ArrowsPointingInIcon, ChevronDoubleLeftIcon } from '@heroicons/react/20/solid';
-import { PhoneIcon as PhoneIconOutline, ClockIcon as ClockIconOutline } from '@heroicons/react/24/outline';
+import { PhoneIcon as PhoneIconOutline } from '@heroicons/react/24/outline';
 import { debounce, get, isEmpty } from 'lodash-es';
 import { nanoid } from 'nanoid';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
@@ -38,7 +38,7 @@ export function Content({
   openLog = false,
   ...rest
 }: ChatApp) {
-  const { timeStr, setCountDownTime } = useTimeDown();
+  const { setCountDownTime } = useTimeDown();
 
   const {
     currentStatus,
@@ -156,7 +156,6 @@ export function Content({
     setDuixOptions: async (optons): Promise<void> => {
       setState(optons);
       const { activeCheckSec, sessionTimeOutSec, tasterSec, stopCallTimeSec, durationBalanceSec } = getState();
-      // await loadRemoteScript(sdkUrl);
       const count = await hasCamera();
       setState({
         cameraStatus: count >= 1 ? 1 : 2
