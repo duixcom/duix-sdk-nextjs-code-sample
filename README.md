@@ -1,93 +1,42 @@
-# Chat Box Component
-A React component for integrating real-time video chat functionality into your applications.
+# Duix JavaScript SDK Demo
 
-### Installation
-bash:
-`npm install @wanghongl/chat-box`
+This sample demonstrates how to use [Duix JavaScript SDK](https://docs.duix.com/api-reference/h5/).
 
-### Quick Start
-app.jsx:
-```html
- import { useRef } from 'react';
- import { Content, type ChatBoxImperativeHandle } from '@wanghongl/chat-box';
- import './App.css';
+## Quick start
 
- function App() {
-   const chatRef = useRef<ChatBoxImperativeHandle>(null);
-
-   const onStart = async (ref: ChatBoxImperativeHandle) => {
-   chatRef.current = ref;
-   await chatRef.current?.startCall({
-     mode: 'video',
-     config: {
-       appId: '<your appId>',
-       appKey: '<your appKey>',
-       conversationId: '<conversationId>',
-       platform: 'duix.com'
-     }
-   });
-};
-
-return (
-  <div className="relative h-screen w-screen bg-white">
-    <Content
-      openLog={false}
-      onStart={onStart}
-      durationBalanceSec={3 * 60}
-      onStop={() => {
-        // TODO
-      }}
-      onError={(type, error) => {
-        console.debug(type, error);
-      }}
-    />
-  </div>
- )
-}
-
-export default App;
+1. Clone the repo:
+```bash
+git clone https://github.com/duixcom/duix-sdk-react-code-sample.git
 ```
 
-### props
-#### Content Component Props
-| Prop             | Type         | Required | Description |
-| ---------------- | ------------ | -------- | ----------- |
-| openLog          | Boolean      | No       | Enable debug logging |
-| durationBalanceSec | number     | Yes      | Available conversation duration (seconds)
-| onStart          | `(ref: ChatBoxImperativeHandle) => void` | Yes | Callback when chat starts |
-| onStop           | `() => void` | No       | Callback when chat stops |
-| onError          | `(type: string, error: any) => void` | No | Error handler callback |
-
-### ChatBoxImperativeHandle Methods
-`startCall(options: StartCallOptions): Promise<void>`
-
-Starts a video/audio call with the specified configuration.
-#### StartCallOptions:
-typescript:
-```javascript
-{
-  mode: 'video' | 'audio';
-  config: {
-    appId: string;
-    appKey: string;
-    conversationId: string;
-    platform: string;
-  }
-};
+2. Install dependencies:
+```bash
+npm install
 ```
 
-### Configuration
-#### Authentication
-- `appId` Your application ID
+3. Replace `<your appId>`, `<your appKey>`, and `<conversationId>` in [App.jsx](https://github.com/duixcom/duix-sdk-react-code-sample/blob/main/src/App.tsx#L12-L14) with your actual credentials.
+```typescript
+await chatRef.current?.startCall({
+    mode: 'video',
+    config: {
+        appId: '<your appId>', // Get from Duix Settings -> API Keys
+        appKey: '<your appKey>', // Get from Duix Settings -> API Keys
+        conversationId: '<conversationId>', // Get from Duix Dashboard
+        platform: 'duix.com'
+    },
+    sessionTimeOutSec: 0
+})
+```
 
-- `appKey` Your application key
+4. Run locally:
+```bash
+npm run dev
+```
 
-- `conversationId` Unique identifier for the conversation
-
-- `platform` Platform identifier (e.g., 'duix.com')
-
-### Browser Support
+## Requirement
 This component supports modern browsers with WebRTC capabilities for real-time video/audio communication.
 
-### License
-MIT License
+## Related Links
+
+- Duix: https://www.duix.com
+- Duix API & SDK docs: https://docs.duix.com
